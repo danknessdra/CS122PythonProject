@@ -1,5 +1,7 @@
 RateMyProfessor CLI
+
 Team Name: “Insert Team Name”
+
 Raymond Lin: raymond.z.lin@sjsu.edu, Austin Trinh: xuanhuy.trinh@sjsu.edu, David Le: david.le05@sjsu.edu
 
 Problem:
