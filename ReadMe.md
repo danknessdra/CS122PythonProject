@@ -1,5 +1,7 @@
 RateMyProfessor CLI
+
 Team Name: “Insert Team Name”
+
 Raymond Lin: raymond.z.lin@sjsu.edu, Austin Trinh: xuanhuy.trinh@sjsu.edu, David Le: david.le05@sjsu.edu
 
 Problem:
@@ -9,9 +11,14 @@ Functionality:
 We will use a web scraper to gather data on RateMyProfessor and the SJSU catalog. With this data, we will create a Command Line Interface with commands that allow users to search for courses based on course name, rating, and professor. The user can then sort this data by rating or course, allowing people to compare professors more quickly. This application will cover the area of Web Scraping and Data Analysis. 
 
 Previous Works:
+
+
 https://github.com/Rodantny/Rate-My-Professor-Scraper-and-Search:
+
 This project allows you to get RMP data for one professor at a time.
+
 https://github.com/LucasStevenson/SJSU-RMP-Class-Search:
+
 This project is effectively the same as what we’re describing, but it has a website interface, and does not sort search results.
 
 High-Level Approach:
