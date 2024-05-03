@@ -7,4 +7,5 @@ mystr = mybytes.decode("utf8")
 fp.close()
 sourceFile = open('website_data.txt', 'w')
 print(mystr, file = sourceFile)
+#gets php data from sjsu, but needs manual cleaning, not important for rn
 
