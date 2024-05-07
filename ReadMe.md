@@ -24,3 +24,6 @@ This project is effectively the same as what we’re describing, but it has a we
 High-Level Approach:
 We will send an HTTP GET request to https://www.sjsu.edu/classes/schedules/spring-2024.php to gather course catalog information, and build a scraper to get information from RateMyProfessors. Our command line interface will process this data to return sorted search results to users.
 
+Dependencies: 
+
+[Tabulate](https://pypi.org/project/tabulate/)
