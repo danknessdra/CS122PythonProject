@@ -4,14 +4,16 @@ import re
 import difflib
 from types import prepare_class
 from tabulate import tabulate
+import base64
 
 class Teacher:
-  def __init__(self, name, avgDifficulty, avgRating, numRatings, wouldTakeAgainPercent):
+  def __init__(self, name, avgDifficulty, avgRating, numRatings, wouldTakeAgainPercent, link):
     self.name = name
     self.avgDifficulty = avgDifficulty
     self.avgRating = avgRating
     self.numRatings = numRatings
     self.wouldTakeAgainPercent = wouldTakeAgainPercent
+    self.link = link
 
 class InvalidInputException(Exception):
     pass
@@ -55,11 +57,13 @@ teacher_to_struct = {}
 
 for teacher in data["data"]["search"]["teachers"]["edges"]:
     teacher_name = teacher["node"]["firstName"] + " " + teacher["node"]["lastName"]
+    teacher_rmp_link = "https://www.ratemyprofessors.com/professor/"+str(base64.b64decode(teacher["node"]["id"])[8::].decode('utf-8'))
     teacher_struct = Teacher(teacher_name,
                              teacher["node"]["avgDifficulty"],
                              teacher["node"]["avgRating"],
                              teacher["node"]["numRatings"],
-                             teacher["node"]["wouldTakeAgainPercent"])
+                             teacher["node"]["wouldTakeAgainPercent"],
+                             teacher_rmp_link)
     teacher_to_struct[teacher_name] = teacher_struct
     for course in teacher["node"]["courseCodes"]:
         standard_course_name = re.sub(r'[^a-zA-Z0-9\s]', '', course["courseName"]).lower()
@@ -90,7 +94,8 @@ while run:
                            t.avgDifficulty,
                            t.avgRating,
                            t.numRatings,
-                           t.wouldTakeAgainPercent]
+                           t.wouldTakeAgainPercent,
+                           t.link]
                 teacherTable.append(teacher)
             if len(userInput) < 3:
                 userInput.append("") #dummy append to avoid nesting
@@ -109,7 +114,8 @@ while run:
                                                  "Diff",
                                                  "Rating",
                                                  "Count",
-                                                 "reTake"]))
+                                                 "ReTake%",
+                                                 "link"]))
         case "h" | "help":
             with open("help.txt") as help:
                 print(help.read())
