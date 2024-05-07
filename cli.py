@@ -73,23 +73,6 @@ for teacher in data["data"]["search"]["teachers"]["edges"]:
         teacher_course[standard_teacher_name].append(standard_course_name)
         course_teacher[standard_course_name].append(teacher_name)
 
-"""
-print(list(teacher_course.keys()))
-print("Search Richard Low:", search_by_teacher("Richard Low"))
-try:
-    print("Search MATH31:", search_by_course("MATH31"))
-except InvalidInputException as E:
-    print(E)
-
-try:
-    print("Search math31:", search_by_course("math31"))
-    teachers = search_by_course("math31")
-    for teacher in teachers:
-        print(teacher.name, teacher.avgRating)
-except InvalidInputException as E:
-    print(E)
-"""
-
 run = True
 while run:
     userInput = input("(pyrmp) ").lower().split(" ")
