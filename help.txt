@@ -1,0 +1,10 @@
+course [course] (sortCriteria):
+    Searches data for course named [course].
+    Displays teachers teaching course and their ratings.
+help:
+    Displays this help message. Very useful!
+quit:
+    Terminates the program and exits.
+teacher [teacher]:
+    Searches data for teacher named [teacher],
+    Displays their ratings and courses taught.
