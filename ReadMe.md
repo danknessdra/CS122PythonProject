@@ -14,10 +14,11 @@ Running:
 
 Install `tabulate` (for CLI only):
 ```bash
-pip install tabulate
-# or:
+# you may need to create a virtual environment
 python -m venv venv
-source venv/bin/activate.sh
+source venv/bin/activate
+# install tabulate
+pip install tabulate
 ```
 
 Then run either the CLI or GUI:
@@ -32,7 +33,7 @@ GUI instructions:
 The searchbar at the bottom allows you to search by classes. Type in your query and press the searchbar. To reset the
 query, you can clear the searchbar and press enter or press the "Reset" button.
 
-You can control+click or shift+click to select multiple items. Once selected you can press the Compare button to open
+You can click an item to select it. You can control+click or shift+click to select multiple items. Once selected you can press the Compare button to open
 the professors on RateMyProfessor.
 
 Previous Works:
