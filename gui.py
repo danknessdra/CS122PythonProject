@@ -64,10 +64,36 @@ class ProfessorGui:
         for item in teacher_by_id.values():
             self.treeview.insert('', tk.END, values=(item.name, item.avgDifficulty, item.avgRating,
                                                  item.wouldTakeAgainPercent, item.link), iid = item.id)
-            for course in teacher_course.get(item.id):
-                self.treeview.insert(item.id, tk.END, values=("COURSE:", course.upper(), "", "", ""))
+            for i, course in enumerate(teacher_course.get(item.id)):
+                self.treeview.insert(item.id, tk.END, values=("| COURSE:", course.upper(), "", "", ""), iid
+                                     = f'course{i}{item.id}')
+
+        def treeview_sort_column(tv: ttk.Treeview, col, reverse):
+            l = [(tv.set(k, col), k) for k in tv.get_children()]
+            if len(l) > 0:
+                first = l[0][0]
+                print(first)
+                try:
+                    int(first)
+                    l.sort(key=lambda t: int(t[0]), reverse=reverse)
+                except ValueError:
+                    try:
+                        float(first)
+                        l.sort(key=lambda t: float(t[0]), reverse=reverse)
+                    except ValueError:
+                        l.sort(reverse=reverse)
+
+            # rearrange items in sorted positions
+            for index, (val, k) in enumerate(l):
+                tv.move(k, '', index)
+
+            # reverse sort next time
+            tv.heading(col, text=col, command=lambda _col=col: \
+                treeview_sort_column(tv, _col, not reverse))
         for col in teacher_headings:
-            self.treeview.heading(col, text=col.title())
+
+            self.treeview.heading(col, text=col.title(), command=lambda c=col: treeview_sort_column(self.treeview, c,
+                                                                                                    False))
             # command=lambda c=col: sortby(self.tree, c, 0))
             # adjust the column's width to the header string
             self.treeview.column(col, width=tkFont.Font().measure(col.title()) + 100)
@@ -97,7 +123,6 @@ class ProfessorGui:
         self.entry = tk.Entry(self.bottom_frame, width=35, borderwidth=5)
         self.entry.pack(side=tk.BOTTOM)
         self.window.bind("<Return>", func=lambda _: self.filter(self.entry.get()))
-        self.search_suggestions = tk.Listbox
 
     def reset(self):
         self.entry.delete(0, tk.END)
@@ -105,6 +130,8 @@ class ProfessorGui:
 
     def compare_professors(self):
         for selection in self.treeview.selection():
+            if selection.startswith("course"):
+                continue
             webbrowser.open_new_tab(teacher_by_id[selection].link)
 
     def filter(self, course: str = ""):
@@ -125,6 +152,7 @@ class ProfessorGui:
             if should_hide:
                 self.hidden.append(id)
                 self.treeview.detach(id)
+
 if __name__ == "__main__":
     gui = ProfessorGui()
     gui.window.mainloop()
