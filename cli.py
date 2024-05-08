@@ -1,8 +1,8 @@
+# pyright: basic
 #import requests
 import json
 import re
 import difflib
-from types import prepare_class
 from tabulate import tabulate
 import base64
 
