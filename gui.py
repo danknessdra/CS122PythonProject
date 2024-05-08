@@ -40,11 +40,11 @@ for teacher in data["data"]["search"]["teachers"]["edges"]:
                              teacher_rmp_link,
                             id)
     teacher_by_id[id] = teacher_struct
+    if id not in teacher_course:
+        teacher_course[id] = []
     for course in teacher["node"]["courseCodes"]:
         standard_course_name = re.sub(r'[^a-zA-Z0-9\s]', '', course["courseName"]).lower()
         course_names.add(standard_course_name);
-        if id not in teacher_course:
-            teacher_course[id] = []
         if standard_course_name not in course_teacher:
             course_teacher[standard_course_name] = []
         teacher_course[id].append(standard_course_name)
@@ -64,6 +64,8 @@ class ProfessorGui:
         for item in teacher_by_id.values():
             self.treeview.insert('', tk.END, values=(item.name, item.avgDifficulty, item.avgRating,
                                                  item.wouldTakeAgainPercent, item.link), iid = item.id)
+            for course in teacher_course.get(item.id):
+                self.treeview.insert(item.id, tk.END, values=("COURSE:", course.upper(), "", "", ""))
         for col in teacher_headings:
             self.treeview.heading(col, text=col.title())
             # command=lambda c=col: sortby(self.tree, c, 0))
@@ -88,36 +90,41 @@ class ProfessorGui:
         self.bottom_frame.pack(side=tk.BOTTOM)
         self.compare_button = tk.Button(self.bottom_frame, text="Compare Professors on RMP", command=self.compare_professors)
         self.compare_button.pack(side=tk.LEFT, anchor="sw")
-        self.entry = tk.Entry(self.bottom_frame, width=35, borderwidth=5)
-        self.entry.pack(side=tk.BOTTOM)
         self.search_button = tk.Button(self.bottom_frame, text="Search", command=lambda: self.filter(self.entry.get()))
         self.search_button.pack(side=tk.RIGHT, anchor="se")
         self.reset_button = tk.Button(self.bottom_frame, text="Reset", command=self.reset)
         self.reset_button.pack(side=tk.RIGHT, anchor="se")
+        self.entry = tk.Entry(self.bottom_frame, width=35, borderwidth=5)
+        self.entry.pack(side=tk.BOTTOM)
         self.window.bind("<Return>", func=lambda _: self.filter(self.entry.get()))
+        self.search_suggestions = tk.Listbox
 
     def reset(self):
         self.entry.delete(0, tk.END)
-        self.filter("")
+        self.filter()
 
     def compare_professors(self):
         for selection in self.treeview.selection():
             webbrowser.open_new_tab(teacher_by_id[selection].link)
 
-    def filter(self, course: str):
+    def filter(self, course: str = ""):
+        course = course.lower()
         while len(self.hidden) > 0:
             id = self.hidden.pop()
             item = teacher_by_id[id]
-            self.treeview.insert('', tk.END, values=(item.name, item.avgDifficulty, item.avgRating,
-                                                     item.wouldTakeAgainPercent, item.link), iid =item.id)
+            self.treeview.reattach(id, "", 0)
         if (course == ""):
             # just restore stuff
             return
         for id in self.treeview.get_children():
-            teacher_courses = teacher_course.get(id);
-            if id not in teacher_course or course not in teacher_courses:
+            should_hide = True
+            for taught_course in teacher_course.get(id):
+                if taught_course.find(course) != -1:
+                    should_hide = False
+                    break
+            if should_hide:
                 self.hidden.append(id)
-                self.treeview.delete(id)
+                self.treeview.detach(id)
 if __name__ == "__main__":
     gui = ProfessorGui()
     gui.window.mainloop()
