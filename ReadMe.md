@@ -4,6 +4,12 @@ Team Name: “Insert Team Name”
 
 Raymond Lin: raymond.z.lin@sjsu.edu, Austin Trinh: xuanhuy.trinh@sjsu.edu, David Le: david.le05@sjsu.edu
 
+Snapshots of program:
+CLI:
+![alt text](image.png)
+GUI:
+![alt text](image-1.png)
+
 ## Problem:
 The course catalog only has search criteria with course name and professor, without ratings. RateMyProfessor has rating data, but only allows you to search up to one professor at a time, which is tedious and inconvenient for comparing professors. There is no method to search many professors simultaneously with sorted rating information.
 
@@ -25,7 +31,7 @@ We will send an HTTP GET request to https://www.sjsu.edu/classes/schedules/sprin
 
 # Running:
 
-Install `tabulate` (for CLI only):
+Install [`tabulate`](https://pypi.org/project/tabulate/) (for CLI only):
 ```bash
 # you may need to create a virtual environment
 python -m venv venv
@@ -53,30 +59,6 @@ query, you can clear the searchbar and press enter or press the "Reset" button.
 You can click an item to select it. You can control+click or shift+click to select multiple items. Once selected you can press the Compare button to open
 the professors on RateMyProfessor.
 
-CLI instructions:
+# CLI instructions:
 
-See help.txt. 
-
-Snapshots of program:
-
-CLI:
-![alt text](image.png)
-GUI: 
-![alt text](image-1.png)
-
-Previous Works:
-
-https://github.com/Rodantny/Rate-My-Professor-Scraper-and-Search:
-
-This project allows you to get RMP data for one professor at a time.
-
-https://github.com/LucasStevenson/SJSU-RMP-Class-Search:
-
-This project is effectively the same as what we’re describing, but it has a website interface, and does not sort search results.
-
-High-Level Approach:
-We will send an HTTP GET request to https://www.sjsu.edu/classes/schedules/spring-2024.php to gather course catalog information, and build a scraper to get information from RateMyProfessors. Our command line interface will process this data to return sorted search results to users.
-
-Dependencies:
-
-[Tabulate](https://pypi.org/project/tabulate/)
+See help.txt.
