@@ -41,6 +41,7 @@ CLI instructions:
 See help.txt. 
 
 Snapshots of program:
+
 CLI:
 ![alt text](image.png)
 GUI: 
