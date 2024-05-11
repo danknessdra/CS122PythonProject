@@ -1,6 +1,11 @@
 course [course] (sortCriteria):
     Searches data for course named [course].
     Displays teachers teaching course and their ratings.
+    sortCriteria are:
+    - "d" | "diff" | "difficulty"
+    - "r" | "rating"
+    - "c" | "count"
+    - "t" | "retake"
 help:
     Displays this help message. Very useful!
 quit:
@@ -8,3 +13,4 @@ quit:
 teacher [teacher]:
     Searches data for teacher named [teacher],
     Displays their ratings and courses taught.
+
