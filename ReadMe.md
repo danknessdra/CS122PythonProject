@@ -36,6 +36,12 @@ query, you can clear the searchbar and press enter or press the "Reset" button.
 You can click an item to select it. You can control+click or shift+click to select multiple items. Once selected you can press the Compare button to open
 the professors on RateMyProfessor.
 
+Snapshots of program:
+CLI:
+![alt text](image.png)
+GUI: 
+![alt text](image-1.png)
+
 Previous Works:
 
 https://github.com/Rodantny/Rate-My-Professor-Scraper-and-Search:
